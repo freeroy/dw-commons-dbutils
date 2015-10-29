@@ -4,7 +4,7 @@
  	<parent>
 		<groupId>org.developerworld.commons</groupId>
 		<artifactId>dw-commons-parent</artifactId>
-		<version>0.0.1</version>
+		<version>0.0.2</version>
 	</parent>
 
 	<artifactId>dw-commons-dbutils</artifactId>
@@ -24,7 +24,6 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
