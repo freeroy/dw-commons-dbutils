@@ -11,7 +11,7 @@
 	<artifactId>dw-commons-dbutils</artifactId>
 	<packaging>jar</packaging>
 	<name>dw-commons-dbutils</name>
-	<version>0.0.3-SNAPSHOT</version>
+	<version>0.0.3</version>
 	<description>数据库工具包</description>
 
 	<!-- scm配置 -->
