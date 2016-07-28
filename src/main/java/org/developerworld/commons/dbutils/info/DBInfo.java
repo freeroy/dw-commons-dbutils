@@ -14,6 +14,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.developerworld.commons.dbutils.info.object.Column;
+import org.developerworld.commons.dbutils.info.object.Database;
 import org.developerworld.commons.dbutils.info.object.ForeignKey;
 import org.developerworld.commons.dbutils.info.object.Index;
 import org.developerworld.commons.dbutils.info.object.PrimaryKey;
@@ -33,6 +34,21 @@ public class DBInfo {
 
 	public DBInfo(Connection connection) {
 		this.connection = connection;
+	}
+	
+	/**
+	 * 获取数据库信息
+	 * @return
+	 * @throws Exception
+	 */
+	public Database getDatabaseInfo() throws Exception{
+		Database rst=new Database();
+		DatabaseMetaData databaseMetaData=connection.getMetaData();
+		rst.setProductName(databaseMetaData.getDatabaseProductName());
+		rst.setProductVersion(databaseMetaData.getDatabaseProductVersion());
+		rst.setMajorVersion(databaseMetaData.getDatabaseMajorVersion());
+		rst.setMinorVersion(databaseMetaData.getDatabaseMinorVersion());
+		return rst;
 	}
 
 	/**
