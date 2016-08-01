@@ -20,6 +20,7 @@ import org.developerworld.commons.dbutils.sql.dialect.rowbound.impl.SybaseRowBou
 
 /**
  * rowBound工厂类
+ * 
  * @author Roy Huang
  *
  */
@@ -77,8 +78,14 @@ public class RowBoundDialectFactory {
 	 */
 	public static Class<? extends RowBoundDialect> getRowBoundDialectClass(DatabaseMetaData databaseMetaData)
 			throws SQLException {
-		String databaseName = databaseMetaData.getDatabaseProductName();
-		int databaseMajorVersion = databaseMetaData.getDatabaseMajorVersion();
+		String databaseName = null;
+		Integer databaseMajorVersion = null;
+		try {
+			databaseName = databaseMetaData.getDatabaseProductName();
+			databaseMajorVersion = databaseMetaData.getDatabaseMajorVersion();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 		// if ( "CUBRID".equalsIgnoreCase( databaseName ) ) {
 		// return new CUBRIDDialect();
 		// }
@@ -93,9 +100,14 @@ public class RowBoundDialectFactory {
 		if ("Apache Derby".equals(databaseName))
 			return DerbyRowBoundDialect.class;
 		if ("ingres".equalsIgnoreCase(databaseName)) {
-			if (databaseMajorVersion >= 9) {
-				int databaseMinorVersion = databaseMetaData.getDatabaseMinorVersion();
-				if (databaseMinorVersion <= 2)
+			if (databaseMajorVersion != null && databaseMajorVersion >= 9) {
+				Integer databaseMinorVersion = null;
+				try {
+					databaseMinorVersion = databaseMetaData.getDatabaseMinorVersion();
+				} catch (Throwable e) {
+					e.printStackTrace();
+				}
+				if (databaseMinorVersion == null || databaseMinorVersion <= 2)
 					return Ingres_L9RowBoundDialect.class;
 				else
 					return IngresRowBoundDialect.class;
@@ -103,7 +115,7 @@ public class RowBoundDialectFactory {
 				return Ingres_L9RowBoundDialect.class;
 		}
 		if (databaseName.startsWith("Microsoft SQL Server")) {
-			if (databaseMajorVersion <= 8)
+			if (databaseMajorVersion == null || databaseMajorVersion <= 8)
 				return SQLServer_LE2000RowBoundDialect.class;
 			else
 				return SQLServerRowBoundDialect.class;

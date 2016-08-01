@@ -1,6 +1,11 @@
 package org.developerworld.commons.dbutils.sql.command;
 
+import org.developerworld.commons.dbutils.sql.dialect.rowbound.RowBoundDialect;
+
 public class RowBoundCommand {
+
+	private Integer offset;
+	private Integer limit;
 
 	public RowBoundCommand() {
 
@@ -14,9 +19,6 @@ public class RowBoundCommand {
 	public RowBoundCommand(Integer offset) {
 		this(offset, null);
 	}
-
-	private Integer offset;
-	private Integer limit;
 
 	public Integer getOffset() {
 		return offset;
@@ -42,6 +44,36 @@ public class RowBoundCommand {
 	public RowBoundCommand limit(Integer limit) {
 		setLimit(limit);
 		return this;
+	}
+
+	/**
+	 * 构建分页语句
+	 * 
+	 * @param sql
+	 * @param rowBoundDialect
+	 * @return
+	 */
+	public String buildSql(String sql, RowBoundDialect rowBoundDialect) {
+		if (offset != null && !rowBoundDialect.supportOffset())
+			throw new RuntimeException("the dialect unsupport offset!");
+		return rowBoundDialect.buildRowBoundSql(sql, limit, offset);
+	}
+
+	public boolean hasOffset() {
+		return getOffset() != null;
+	}
+
+	public boolean hasLimit() {
+		return getLimit() != null;
+	}
+
+	/**
+	 * 是否设置完整分页信息
+	 * 
+	 * @return
+	 */
+	public boolean hasRowBound() {
+		return getOffset() != null && getLimit() != null;
 	}
 
 	@Override

@@ -14,11 +14,10 @@ public class DerbyRowBoundDialect extends AbstractRowBoundDialect {
 			sb.append(sql.substring(0, getWithIndex(sql) - 1));
 		else
 			sb.append(sql);
-		if (offset == null || offset == 0)
-			sb.append(" fetch first ");
+		if (offset == null || offset <= 0)
+			sb.append(" fetch first ").append(limit).append(" rows only");
 		else
-			sb.append(" offset ").append(offset).append(" rows fetch next ");
-		sb.append(limit).append(" rows only");
+			sb.append(" offset ").append(offset).append(" rows fetch next ").append(limit).append(" rows only");
 		if (hasForUpdateClause(forUpdateIndex)) {
 			sb.append(" ");
 			sb.append(sql.substring(forUpdateIndex));

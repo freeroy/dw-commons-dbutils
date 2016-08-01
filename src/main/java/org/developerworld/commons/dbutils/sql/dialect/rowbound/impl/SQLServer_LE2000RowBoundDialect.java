@@ -6,7 +6,7 @@ public class SQLServer_LE2000RowBoundDialect extends AbstractRowBoundDialect {
 		if (isErrorArgs(sql, limit, offset))
 			return sql;
 		return new StringBuffer().append(sql)
-				.insert(getAfterSelectInsertPoint(sql), " top " + limit).toString();
+				.insert(getAfterSelectInsertPoint(sql), " top " + (offset != null ? offset + limit : limit)).toString();
 	}
 
 	private int getAfterSelectInsertPoint(String sql) {

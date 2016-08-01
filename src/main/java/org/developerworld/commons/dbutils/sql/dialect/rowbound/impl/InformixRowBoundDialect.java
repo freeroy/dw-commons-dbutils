@@ -6,7 +6,8 @@ public class InformixRowBoundDialect extends AbstractRowBoundDialect {
 		if (isErrorArgs(sql, limit, offset))
 			return sql;
 		return new StringBuffer().append(sql)
-				.insert(sql.toLowerCase().indexOf("select") + 6, " first " + limit).toString();
+				.insert(sql.toLowerCase().indexOf("select") + 6, " first " + (offset != null ? offset + limit : limit))
+				.toString();
 	}
 
 	public boolean supportOffset() {
