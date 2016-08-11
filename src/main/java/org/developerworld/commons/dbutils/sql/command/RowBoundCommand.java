@@ -2,6 +2,11 @@ package org.developerworld.commons.dbutils.sql.command;
 
 import org.developerworld.commons.dbutils.sql.dialect.rowbound.RowBoundDialect;
 
+/**
+ * 分页指令
+ * @author Roy Huang
+ *
+ */
 public class RowBoundCommand {
 
 	private Integer offset;

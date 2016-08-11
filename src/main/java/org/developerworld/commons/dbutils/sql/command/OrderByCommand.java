@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 排序类
+ * 排序指令
  * 
- * @author Roy
+ * @author Roy Huang
  *
  */
 public class OrderByCommand {
@@ -28,6 +28,7 @@ public class OrderByCommand {
 			this.value = value;
 		}
 
+		@Override
 		public String toString() {
 			return value;
 		}
@@ -267,7 +268,7 @@ public class OrderByCommand {
 	public String buildSql() {
 		String rst = buildSqlWithOutOrderBy();
 		if (rst.length() > 0)
-			rst = "order by " + rst;
+			rst = " order by " + rst;
 		return rst;
 	}
 
